@@ -1,6 +1,7 @@
 # Create your views here.
 from datetime import datetime
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -10,7 +11,10 @@ from payment.forms import PaymentForm
 
 def get_payments(request):
     payments = Payment.objects.all()
-    return payments
+    paginator = Paginator(payments, 3)
+    page_number = request.GET.get("page")
+    return paginator.get_page(page_number)
+    #return payments
 
 
 def create_payment(request):
@@ -57,12 +61,13 @@ def create_payment(request):
 
 
 def payments(request):
-    payments = Payment.objects.all()
+    #payments = Payment.objects.all()
 
-    context_dict = {"payments": payments}
+    #context_dict = {"payments": payments}
 
     return render(
         request=request,
-        context=context_dict,
+        context={"payments": get_payments(request)},
+        #context=context_dict,
         template_name="payment/payment_list.html",
     )

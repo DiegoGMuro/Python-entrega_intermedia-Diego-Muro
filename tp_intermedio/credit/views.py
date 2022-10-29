@@ -1,6 +1,7 @@
 # Create your views here.
 from datetime import datetime
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -10,7 +11,10 @@ from credit.forms import CreditForm
 
 def get_credits(request):
     credits = Credit.objects.all()
-    return credits
+    paginator = Paginator(credits, 3)
+    page_number = request.GET.get("page")
+    return paginator.get_page(page_number)
+    #return credits
 
 
 def create_credit(request):
@@ -57,12 +61,13 @@ def create_credit(request):
 
 
 def credits(request):
-    credits = Credit.objects.all()
+    #credits = Credit.objects.all()
 
-    context_dict = {"credits": credits}
+    #context_dict = {"credits": credits}
 
     return render(
         request=request,
-        context=context_dict,
+        context={"credits": get_credits(request)},
+        #context=context_dict,
         template_name="credit/credit_list.html",
     )

@@ -1,6 +1,7 @@
 # Create your views here.
 from datetime import datetime
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -10,7 +11,10 @@ from product.forms import ProductForm
 
 def get_products(request):
     products = Product.objects.all()
-    return products
+    paginator = Paginator(products, 3)
+    page_number = request.GET.get("page")
+    return paginator.get_page(page_number)
+    #return products
 
 
 def create_product(request):
@@ -57,12 +61,13 @@ def create_product(request):
 
 
 def products(request):
-    products = Product.objects.all()
+    #products = Product.objects.all()
 
-    context_dict = {"products": products}
+    #context_dict = {"products": products}
 
     return render(
         request=request,
-        context=context_dict,
+        context={"products": get_products(request)},
+        #context=context_dict,
         template_name="product/product_list.html",
     )
