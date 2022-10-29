@@ -27,10 +27,36 @@ Payment
         <div class="post-preview">
             <h2 class="post-title">Descripcion de condicion de pago: {{ payment.code }}  {{ payment.name }}</h2>
             <h4 class="post-title">Dias permitidos: {{ payment.days }}</h4>
-            
-        
+            <p class="post-meta">
+                Creado por
+                <a href="#!">Start Bootstrap</a> 
+                en {{ payment.created_at }}
+            </p>
         </div>
         <!-- Divider-->
         <hr class="my-4" />
     {% endfor %}
+    <!--Pagination-->
+    <div class="container p-4">
+        <div class="pagination justify-content-center">
+            <span class="step-links">
+                {% if payments.has_previous %}
+                    <a href="?page=1">&laquo; first</a> |
+                    <a href="?page={{ payments.previous_page_number }}">previous</a> |
+                {% endif %}
+    
+                {% if payments.paginator.num_pages > 1 %}
+                <span class="current">
+                    Page {{ payments.number }} of {{ payments.paginator.num_pages }} |
+                </span>
+                {% endif %}
+    
+                {% if payments.has_next %}
+                    <a href="?page={{ payments.next_page_number }}">next</a> |
+                    <a href="?page={{ payments.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <!--end of Pagination-->
 {% endblock %}

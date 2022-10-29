@@ -27,11 +27,38 @@ Credit
         <div class="post-preview">
             <h2 class="post-title"> Descripcion de riesgo crediticio: {{ credit.code }}  {{ credit.description }}</h2>
             <h4 class="post-subtitle">Monto de credito permitido: {{ credit.amount }}</h4>
-        
+            <p class="post-meta">
+                Creado por
+                <a href="#!">Start Bootstrap</a> 
+                en {{ credit.created_at }}
+            </p>
         </div>
         <!-- Divider-->
         <hr class="my-4" />
     {% endfor %}
+    <!--Pagination-->
+    <div class="container p-4">
+        <div class="pagination justify-content-center">
+            <span class="step-links">
+                {% if credits.has_previous %}
+                    <a href="?page=1">&laquo; first</a> |
+                    <a href="?page={{ credits.previous_page_number }}">previous</a> |
+                {% endif %}
+    
+                {% if credits.paginator.num_pages > 1 %}
+                <span class="current">
+                    Page {{ credits.number }} of {{ credits.paginator.num_pages }} |
+                </span>
+                {% endif %}
+    
+                {% if credits.has_next %}
+                    <a href="?page={{ credits.next_page_number }}">next</a> |
+                    <a href="?page={{ credits.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <!--end of Pagination-->
 {% endblock %}
 
 
