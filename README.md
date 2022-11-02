@@ -93,4 +93,8 @@ Se recomienda hacer 5 tipos de prueba
 ```bash
 * Chequear con SQLITE las bases de datos 
 ```
+<<<<<<< HEAD
 ![image](https://user-images.githubusercontent.com/113110798/198755394-32c46154-c832-4f9d-a006-1c1cf14f31cf.png)
+=======
+![image](https://user-images.githubusercontent.com/113110798/198755394-32c46154-c832-4f9d-a006-1c1cf14f31cf.png)
+>>>>>>> d539c31a86f5f78445e7db8e8b9bbb75a9aa5f89
